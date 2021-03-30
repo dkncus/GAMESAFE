@@ -13,13 +13,21 @@ stop_words = stopwords.words('english')  # Define list of stopwords
 class MessagesDataset(Dataset):
 	def __init__(self, csv_file, SENTENCE_LENGTH):
 		print('Loading Data from file', csv_file)
-		self.messages_frame = pd.read_csv(csv_file)
-		self.embedding_model = gensim.models.KeyedVectors.load('./models/model.wordvectors')
-		self.SENTENCE_LENGTH = SENTENCE_LENGTH
 		
+		# Load data from the defined CSV file
+		self.messages_frame = pd.read_csv(csv_file)
+		
+		# Load text embedding model 
+		self.embedding_model = gensim.models.KeyedVectors.load('./models/model.wordvectors')
+		
+		# Set the sentence length
+		self.SENTENCE_LENGTH = SENTENCE_LENGTH
+	
+	# Fetch number of entries in the dataset	
 	def __len__(self):
 		return len(self.messages_frame.index)
 
+	# Get a message from the dataframe
 	def __getitem__(self, idx):
 		if torch.is_tensor(idx):
 			idx = idx.tolist()

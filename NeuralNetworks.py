@@ -38,7 +38,7 @@ class LanguageClassifier(nn.Module):
 			nn.Sigmoid(),
 		) 
 
-	# Define forward propagation step
+	# Define forward propagation step - how data passes through the neural network
 	def forward(self, x):
 		# Convert the input word to a tensor through text embedding model
 		x = self.embedding(x)
