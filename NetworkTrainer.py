@@ -121,7 +121,7 @@ class NetworkTrainer():
 			acc_data.append(self.calc_acc(output, lbl_tensor))
 
 		# Print overall accuracy
-		print(f'Dev set accuracy : {round(mean(acc_data), 3)}%')
+		print(f'Dev set accuracy : {round(mean(acc_data), 3) * 100}%')
 
 	# Run test dataset on network
 	def test(self):
@@ -145,7 +145,7 @@ class NetworkTrainer():
 			acc_data.append(self.calc_acc(output, lbl_tensor))
 
 		# Print overall accuracy
-		print(f'Test set accuracy : {round(mean(acc_data), 3)}%')
+		print(f'Test set accuracy : {round(mean(acc_data), 3) * 100}%')
 	
 	# Show accuracy and loss curves during training
 	def display_statistics(self, loss_statistics, acc_statistics):
