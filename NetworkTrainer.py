@@ -145,14 +145,14 @@ class NetworkTrainer():
 			acc_data.append(self.calc_acc(output, lbl_tensor))
 
 		# Print overall accuracy
-		print(f'Dev set accuracy : {round(mean(acc_data), 3)}%')
+		print(f'Test set accuracy : {round(mean(acc_data), 3)}%')
 	
 	# Show accuracy and loss curves during training
 	def display_statistics(self, loss_statistics, acc_statistics):
 		# Calculate loss Statistics
 		loss_statistics_avg = []
 		for l in loss_statistics:
-			loss_statistics_avg.append(self.calc_moving_avg(l, 100))
+			loss_statistics_avg.append(self.calc_moving_avg(l, 10))
 		
 		# Create a list of values between 1 and the total number of datapoints
 		x_axis = [x for x in range(len(loss_statistics_avg[0]))]
@@ -176,7 +176,7 @@ class NetworkTrainer():
 		# Display Accuracy Statistics
 		acc_statistics_avg = []
 		for l in acc_statistics:
-			acc_statistics_avg.append(self.calc_moving_avg(l, 100))
+			acc_statistics_avg.append(self.calc_moving_avg(l, 10))
 		
 		# Create a list of values between 1 and the total number of datapoints
 		x_axis = [x for x in range(len(acc_statistics_avg[0]))]
