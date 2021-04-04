@@ -22,11 +22,11 @@ class LanguageClassifier(nn.Module):
 		
 		# Create LSTM Layer
 		self.lstm = nn.LSTM(input_size=16, hidden_size=self.LSTM_HIDDEN_SIZE, num_layers=1, batch_first=True)  # lstm
+		self.lstm2 = nn.LSTM(input_size=self.LSTM_HIDDEN_SIZE, hidden_size=self.LSTM_HIDDEN_SIZE, num_layers=1, batch_first=True)  # lstm
 		
 		# Create Labeling layer
 		self.fc = nn.Sequential(
-			nn.ReLU(),
-			nn.Linear(self.LSTM_HIDDEN_SIZE, 64),
+			nn.Linear(self.LSTM_HIDDEN_SIZE, self.LSTM_HIDDEN_SIZE),
 			nn.ReLU(),
 			nn.Linear(64, 128),
 			nn.ReLU(),

@@ -12,8 +12,6 @@ def prep_tensors(batch):
 	msg_tensor = []
 	lbl_tensor = []
 	
-	
-	
 	# Convert the lists into tensors
 	msg_tensor = torch.tensor(msg_tensor)
 	lbl_tensor = torch.tensor(lbl_tensor)
@@ -31,7 +29,7 @@ if __name__ == "__main__":
 		words = [token for token in word_tokenize(user_sentence.lower())]
 		
 		print('\t', words)
-		
+
 		# Turn the tokens into indices with the embedding model, normalize indices length
 		indices = [model.embedding_model.wv.key_to_index[word] for word in words if word in model.embedding_model.wv.key_to_index]
 		while len(indices) < 10:

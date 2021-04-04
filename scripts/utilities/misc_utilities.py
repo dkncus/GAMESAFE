@@ -1,7 +1,86 @@
 import pandas as pd
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+import csv
+import numpy as np
 
+"""
+# Concatenate CSV's into one dataframe and split into train, test, and dev sets
+scary = pd.read_csv('./messages_scary_pedo.csv')
+lol = pd.read_csv('./messages_normal_lol.csv')
+dota_sm = pd.read_csv('./messages_normal_dota_303k.csv')
+dota_lg = pd.read_csv('./messages_normal_dota_huge.csv')
+dota_lg_sample = dota_lg.sample(frac=0.0185, random_state = 200) # Take 400k messages from Dota Large Frame
+
+frames = [scary, lol, dota_sm, dota_lg_sample]
+df = pd.concat(frames)
+
+print(len(df))
+
+print('Sampling dataframes into train, dev, and test sets')
+train, dev, test = np.split(df.sample(frac=1, random_state=42), 
+                            [int(.98*len(df)), int(.99*len(df))]) 
+
+print(len(train), type(train))
+print(len(dev), type(dev))
+print(len(test), type(test))
+
+train.to_csv('./training/data_train.csv', index = False)
+test.to_csv('./training/data_test.csv', index = False)
+dev.to_csv('./training/data_dev.csv', index = False)
+"""
+
+"""
+# Create edited window-sized messages for CSV's
+WINDOW_SIZE = 10
+
+
+window = pd.read_csv('./datasets/FORMATTEDdota2_chat_messages.csv')
+
+messages = []
+
+for i, row in window.iterrows():
+	try:
+		no_punct = ""
+		for char in row['message']:
+			if char not in punctuations:
+				no_punct = no_punct + char
+	
+		# Tokenize the cleaned sentence
+		words = word_tokenize(no_punct)
+		
+		# Add a row for every sliding window
+		if len(words) >= WINDOW_SIZE:
+			for ii in range(len(words) - WINDOW_SIZE):
+				window = words[ii:ii + WINDOW_SIZE]
+				string = ''
+				for iii, str in enumerate(window):
+					if iii < WINDOW_SIZE - 1:
+						string += str + ' '
+					else:
+						string += str
+					# print(i, row[2])
+	
+				messages.append({'Message': string, 'Type': 0})	
+		elif len(words) >= 4:
+			string = ''
+			for iiii, str in enumerate(words):
+				if iiii < WINDOW_SIZE - 1:
+					string += str + ' '
+				else:
+					string += str
+			
+			messages.append({'Message': string, 'Type': 0})
+			
+		if i % 1000 == 0:
+			print(i)
+			
+	except:
+		print(i)
+
+df_new = pd.DataFrame(messages, columns=['Message', 'Type'])
+df_new.to_csv('./messages_normal_dota_window.csv', index = False)
+"""
 '''
 View tensor data
 
@@ -25,7 +104,7 @@ https://cnvrg.io/pytorch-lstm/?gclid=Cj0KCQjwjPaCBhDkARIsAISZN7S7uggC0XHu3gKn5jx
 # Concatenate 2 frames and save them as a CSV
 
 df_1 = pd.read_csv('./messages_scary_with_window.csv')
-df_2 = pd.read_csv('./messages_normal_with_window.csv')
+df_2 = pd.read_csv('./messages_scary_window.csv')
 
 frames = [df_1, df_2]
 
@@ -80,7 +159,7 @@ for row in df.iterrows():
 		print(string)
 
 df_new = pd.DataFrame(messages, columns=['Message', 'Type'])
-df_new.to_csv('./messages_normal_with_window.csv', index = False)
+df_new.to_csv('./messages_scary_window.csv', index = False)
 print(len(messages))
 """
 

@@ -6,10 +6,10 @@ if __name__ == '__main__':
 		'training/data_train.csv',      # Training Dataset Location
 		'training/data_dev.csv',        # Development Dataset Location
 		'training/data_test.csv',       # Testing Dataset Location
-		'model_3_30_b',                   # Filename to save the model as once finished training - ./models/{SAVE_NAME}.torch
+		'model_3_31',                   # Filename to save the model as once finished training - ./models/{SAVE_NAME}.torch
 		'./models/model_3_29.wordvectors',   # Location for loading the word vector model
 		EPOCHS = 7,                     # Number of Epochs to train the model on
-		LEARNING_RATE = 0.0075,          # α - Learning rate of the model
+		LEARNING_RATE = 0.001,          # α - Learning rate of the model
 		BATCH_SIZE = 2048,                # Size of batch for vectorization (Most efficient in powers of 2)
 		SENTENCE_LENGTH = 10,           # Length of sentence (Length of input tensor)
 		BATCH_DIAGNOSTICS = 1           # Display Batch Diagnostics
